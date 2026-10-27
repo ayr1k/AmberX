@@ -1,0 +1,8 @@
+import React,{useState,useEffect,useRef} from 'react';
+import {CaretDown,Check} from '@phosphor-icons/react';
+export function Select({label,value,onChange,options,disabled=false}){
+ const [open,setOpen]=useState(false),[cursor,setCursor]=useState(0),root=useRef(),trigger=useRef();
+ useEffect(()=>{const close=e=>{if(!root.current?.contains(e.target))setOpen(false);};document.addEventListener('pointerdown',close);return()=>document.removeEventListener('pointerdown',close);},[]);
+ const choose=i=>{if(!options[i])return;onChange(options[i].value);setOpen(false);trigger.current.focus();};
+ return <div className="select" ref={root}><button ref={trigger} className="select-trigger" disabled={disabled} aria-label={label} aria-haspopup="listbox" aria-expanded={open} onClick={()=>{setCursor(Math.max(0,options.findIndex(o=>o.value===value)));setOpen(!open);}} onKeyDown={e=>{if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();setOpen(true);setCursor(i=>e.key==='Home'?0:e.key==='End'?options.length-1:Math.max(0,Math.min(options.length-1,(open?i:Math.max(0,options.findIndex(o=>o.value===value)))+(e.key==='ArrowDown'?1:-1))));}if(['Escape','Tab'].includes(e.key))setOpen(false);if(open&&['Enter',' '].includes(e.key)){e.preventDefault();choose(cursor);}}}><span>{options.find(o=>o.value===value)?.label||'—'}</span><CaretDown/></button>{open&&<div className="select-list" role="listbox" aria-label={label}>{options.map((o,i)=><button role="option" key={o.value} aria-selected={value===o.value} className={i===cursor?'selected':''} onMouseEnter={()=>setCursor(i)} onClick={e=>{e.preventDefault();choose(i);}}>{o.label}{value===o.value&&<Check/>}</button>)}</div>}</div>;
+}

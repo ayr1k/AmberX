@@ -1,5 +1,15 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('amberDesktop',Object.freeze({
+ experimentAdjust:(...a)=>ipcRenderer.invoke('amber:x-adjust',...a),
+ experimentUndo:(...a)=>ipcRenderer.invoke('amber:x-undo',...a),
+ experimentRecover:(...a)=>ipcRenderer.invoke('amber:x-recover',...a),
+ experimentKeep:(...a)=>ipcRenderer.invoke('amber:x-keep',...a),
+ experimentReview:(...a)=>ipcRenderer.invoke('amber:x-review',...a),
+ removeInstance:(...a)=>ipcRenderer.invoke('amber:instance-remove',...a),
+ trash:(...a)=>ipcRenderer.invoke('amber:instance-trash',...a),
+ trashDetails:(...a)=>ipcRenderer.invoke('amber:trash-details',...a),
+ purgeInstance:(...a)=>ipcRenderer.invoke('amber:trash-purge',...a),
+ restoreInstance:(...a)=>ipcRenderer.invoke('amber:instance-restore',...a),
  info:(...a)=>ipcRenderer.invoke('amber:info',...a),
  listInstances:(...a)=>ipcRenderer.invoke('amber:instances',...a),
  status:(...a)=>ipcRenderer.invoke('amber:status',...a),

@@ -1,50 +1,44 @@
-# AmberX — Experiment 01
+# AmberX — Experiment 02
 
 [English](#english)
 
-AmberX 是独立的本地启动器实验。第一版围绕「目标 → 方案 → 比较 → 独立试用 → 反馈」设计，采用获选的靛蓝与紫色标志。版本为 `0.1.0-alpha.1`，与 AMBER 和 AmberE 的版本序列分开。
+AmberX 是探索目标式操作与方案比较的独立 Minecraft Java 启动器。当前本地测试版本为 `0.2.0-alpha.1`。
 
-## 可以体验
+从一句可编辑的目标开始，锁定版本、加载器或需要的功能；将最多三个方案放在桌面比较。可以复制并调整一个方案，检查成功后替换指定位置，并撤销上一次调整。所有方案在安装前重新核验。
 
-- 目标式首页：改善流畅度、生存便利、兼容远景；保留手动创建。
-- 可编辑的三步方案配方，实际查询版本、加载器和依赖。
-- 保守、综合、激进三档候选；双栏比较与真实文件清单。
-- 原实例只读检查；在独立副本重新生成方案，确认后才安装。
-- 取消、安装重试、重启恢复、可查看的本地日志。
-- 本地反馈、中英文、浅色/深色、自定义选择列表、键盘操作。
+现有实例的更改在独立副本中进行。试用结束后记录感受，选择保留、再调整或删除。删除先移入回收站；恢复会保留存档，彻底删除需要输入完整实例名称。
 
-## 边界
+目标、桌面和调整草稿自动保存在本机；中断的安装可以继续，已创建副本可以重新检查。手动创建、中英文、浅深色和减少动画仍可使用。
 
-只使用本地离线玩家名。不能进入要求官方认证的服务器。没有微软或第三方登录，没有自动更新源。数据固定存放于 `%APPDATA%\AmberX\library`，不会自动读取 AMBER / AmberE 的实例或账号。请仅从本包安装，不覆盖其他启动器的程序目录。
+## 数据与限制
 
-第一版从新建实例开始；跨产品实例导入、自动合并存档、向原实例应用更改均未提供。已有 AmberX 实例可以复制后补装便利或性能内容；远景实验需要新建实例。已有手工模组、禁用项和不匹配的文件可能阻止补装，需要用户先整理，不会被悄悄替换。
-
-兼容性来自平台元数据与本地规则，不代表经过所有硬件实测。比较页的同一张风景图只是示意图，不预览推荐后的画质，不预测 FPS。无合适远景或光影组合时会明确省略。
-
-推荐需要网络。Modrinth、Mojang 和 Java 下载服务会接收普通下载请求；问卷硬件结果与实验反馈不会上传。日志可能包含个人路径，分享前请检查。
+- 离线身份，不支持要求官方认证的服务器；无微软、第三方登录及自动更新。
+- 数据在 `%APPDATA%\AmberX\library`；不读取或修改 AMBER / AmberE 的数据。
+- 不合并存档、不向原实例应用试用更改；保留副本就是保留一个独立实例。
+- 既有实例仅补装内容，版本与加载器不变。远景、光影从全新实例开始。
+- 检查依据是平台元数据与兼容规则；负担是估计，不是实测 FPS。反馈只保存在本机。
+- 推荐与下载需要联网。分享日志前请检查其中的本地路径和个人信息。
 
 ## 本地构建
 
-在 `prototype` 目录使用 Node 24 和 pnpm 11：
+在 `prototype` 内使用 Node 24 与 pnpm 11：
 
 ```text
 pnpm install --frozen-lockfile
-pnpm build
 pnpm test
 pnpm test:x
+pnpm build
 pnpm package:installer
 ```
 
-源码沿用 MPL-2.0，保留继承模块的许可证与第三方声明。官方仓库：https://github.com/ayr1k/AmberX 。
+安装包、源码包及校验文件位于 `releases/Experiment02`。第一版交付件保留在 `releases/Experiment01`。第二版预发布下载：https://github.com/ayr1k/AmberX/releases/tag/v0.2.0-alpha.1 。
 
 ## English
 
-AmberX Experiment 01 (`0.1.0-alpha.1`) is an independent local launcher experiment: goal → recipe → comparison → separate trial → feedback. It uses the approved indigo/periwinkle identity and does not modify AMBER or AmberE.
+AmberX Experiment 02 (`0.2.0-alpha.1`) explores editable goals, bounded setup comparison and independent trials. Lock a game version, loader or required feature; compare up to three plans, duplicate and adjust a plan, inspect file differences and undo the last successful adjustment. Installation always rechecks metadata.
 
-Choose smoother gameplay, survival conveniences, or compatible distant terrain. Review conservative, balanced and aggressive plans with actual file lists. Existing AmberX instances are copied before additions; plans are regenerated for the copy and require another confirmation. Manual creation, installation cancellation/resume, local logs, local feedback, Chinese/English, light/dark themes and keyboard-operated selectors are available.
+Changes to existing instances happen in separate copies. After playing, record your observations, keep the instance, revise your goal or recycle the trial. Restoration includes worlds; permanent deletion requires the full instance name. Drafts and the current desk persist locally, and interrupted installations can resume.
 
-Offline player names only. No Microsoft or third-party sign-in, official-authenticated multiplayer or automatic update feed. Data lives in `%APPDATA%\AmberX\library`. Cross-product imports, world merges and promotion into the original are not included in this experiment. Distant terrain starts in a clean instance. Managed add-on recommendations may reject unmanaged, disabled or modified content instead of replacing it.
+Offline identity only. No Microsoft or third-party authentication, automatic updates, world merging or modifications to AMBER/AmberE. Data stays in `%APPDATA%\AmberX\library`. Existing instances retain their version and loader; visual experiments start fresh. Compatibility metadata is not gameplay certification and estimated load is not measured FPS. Hardware choices and feedback stay local.
 
-Compatibility checks use platform metadata and curated rules; they are not a guarantee of gameplay or FPS. Both comparison illustrations are the same image, not rendered previews of either setup. Missing compatible visual combinations are omitted visibly. Network requests are required for version metadata and downloads; hardware survey results and feedback stay local. Review logs before sharing.
-
-Build in `prototype` with Node 24 and pnpm 11 using the commands above. MPL-2.0; inherited license notices retained. Repository: https://github.com/ayr1k/AmberX .
+Build with Node 24 and pnpm 11 using the commands above. Experiment 02 is available as a prerelease at https://github.com/ayr1k/AmberX/releases/tag/v0.2.0-alpha.1 . MPL-2.0; inherited license and third-party notices are retained.

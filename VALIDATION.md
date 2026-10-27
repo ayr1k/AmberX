@@ -1,13 +1,27 @@
-# Experiment 01 验证记录 / Validation
+# AmberX Experiment 02 验证记录 / Validation
 
-2026-10-27 · Windows x64 · Electron 45 · Node 24
+版本：0.2.0-alpha.1。本地测试；未上传 GitHub。
 
-- 252 项继承核心回归通过；13 项 AmberX 专项测试通过。覆盖版本推荐、兼容依赖、独立副本、原文件变化检测、复制失败、网络失败、恢复、目标绑定、重复操作与离线认证边界。
-- 真实网络测试：自动推荐 Minecraft 26.3 / Fabric 0.20.1，安装 Java、游戏和 Sodium、Lithium、FerriteCore；在独立副本中补装便利内容，原实例受检查文件清单及哈希保持一致。
-- 副本游戏进程实际启动，日志达到资源/渲染初始化，再关闭该测试进程；保存本地反馈。不是长时间游玩、FPS 基准或所有光影组合的实测。
-- 桌面检查：中英文、深浅色、100/125/150/200% 缩放，无横向页面溢出。标签禁止选择；输入与日志允许复制。首页、配方、比较桌面、实验记录与设置已截图检查。
-- 打包程序冒烟检查通过：资源读取、系统加密能力、主要 IPC、产品名与版本正确；不暴露微软登录、第三方认证、原实例合并、数据迁移或程序更新接口。
+## 已验证
 
-252 inherited core tests and 13 AmberX tests passed. A live download/install/copy/add-on/launch/feedback loop completed with source hashes unchanged. The isolated game reached resource/render initialization; this is not a long-play, FPS or universal shader benchmark. Chinese/English, light/dark and 100–200% scaling were inspected. The packaged app passed startup and exposed-interface checks.
+- 252 项已有核心测试及 28 项 AmberX 测试通过。
+- 版本/加载器锁定、必需功能不可用时阻断、复制调整失败保留原桌面、撤销和跨重启恢复。
+- 副本复查失败继续使用已有副本；安装续传保持同一目标。
+- 运行中实例拒绝删除及保留；删除/恢复/彻底删除与实验状态对应。
+- 独立 Windows 桌面 UI 验证：目标、对比、差异开关、调整草稿重启恢复、删除/恢复/名称确认彻底删除。
+- 浅深色、中英文和 100%/125%/150%/200% 缩放；页面无横向溢出，窄窗口为单卡切换。
+- 实际联网查询固定版本的推荐，调整方案并安装到独立副本，启动 Minecraft 并观察到渲染/资源初始化。
+- 试用后体验记录、保留、移入回收站、恢复及彻底删除流程完成；原实例受跟踪文件的校验保持不变。
 
-尚未完成 / Not yet covered: all GPU vendors, all Windows scaling/font combinations, all game versions and long-running gameplay. User testing remains necessary. Cross-launcher import and world/source promotion are intentionally absent from this experiment.
+- 最终安装包启动检查通过，111 个运行时文件与最终源码/构建产物一致；安装器的跨产品目录保护通过。
+- 实际遇到副本创建后的网络中断，重启后重新检查并复用同一副本完成安装、启动和删除恢复闭环。
+
+## 限制
+
+实际启动验证使用隔离测试目录中的 Minecraft 26.3 / Fabric 0.20.1。它不是所有 Minecraft 版本、GPU、光影组合或多人服务器的全面认证，也没有测量 FPS。
+
+离线身份、没有自动更新；AMBER 和 AmberE 不在本次修改范围内。第一版的安装包与源码包保持独立保留。
+
+## English
+
+252 core tests and 28 AmberX tests passed. Desktop interaction checks cover goal and constraint editing, three-way file comparison, restored drafts, recycling/restoration/permanent deletion, both languages/themes and 100–200% zoom. Live metadata and independent-copy installation were exercised on Minecraft 26.3 / Fabric 0.20.1, followed by a game initialization check and the post-trial lifecycle. Tracked source-instance hashes were unchanged. This is not an FPS benchmark or certification for every game version, GPU, shader or server.

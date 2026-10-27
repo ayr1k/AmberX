@@ -24,7 +24,7 @@ export async function recommend(guide,input,existing=null){
  games=games.filter(v=>required.every(p=>p.game_versions?.includes(v.id)));
  if(!games.length)fail('noCommonVersion');
  const ps=await Promise.all(ids.map(project));
- const ranked=games.map((v,i)=>({v,n:wanted.filter(k=>features[k].slugs.some(slug=>ps.some(p=>p?.slug===slug&&p.game_versions?.includes(v.id)))).length*10-i*(a.freshness==='stable'?.8:3)})).sort((x,y)=>y.n-x.n);
+ const ranked=games.map((v,i)=>({v,n:wanted.filter(k=>features[k].slugs.some(slug=>ps.some(p=>p?.slug===slug&&p.game_versions?.includes(v.id)))).length*10+a.requiredFeatures.filter(k=>features[k].slugs.some(slug=>ps.some(p=>p?.slug===slug&&p.game_versions?.includes(v.id)))).length*10000-i*(a.freshness==='stable'?.8:3)})).sort((x,y)=>y.n-x.n);
  games=[...new Map([...ranked.slice(0,4).map(x=>x.v),...games.slice(0,2)].map(v=>[v.id,v])).values()];
  const candidates=[];
  const installed=existing?.files||[];
@@ -104,7 +104,7 @@ export async function recommend(guide,input,existing=null){
    if(a.features.some(k=>['identify','food'].includes(k))&&a.play!=='single')warnings.push('partialServer');
    const coverage=requested.filter(k=>resolved.roots.some(r=>r.feature===k)).reduce((sum,k)=>sum+(features[k].group==='visual'?1:features[k].group==='gameplay'?200:100),0);
    const metrics={impact:impact(resolved.roots),load:visual.lod!=='off'||visual.profile==='HIGH'||resolved.roots.some(r=>r.feature==='machinery')?'high':visual.profile!=='off'||resolved.roots.some(r=>r.group==='gameplay')?'medium':'low'};
-   candidates.push({schema:1,ruleVersion:RULE_VERSION,answers:a,target,kind:tier,roots,...resolved,omitted,substitutions,visual,metrics,warnings,score:coverage+(visual.profile!=='off'?12:0)+(visual.lod!=='off'?10:0)-catalog.findIndex(v=>v.id===game.id)*(a.freshness==='stable'?2:5),memory:memoryBudget(a,hardware.memoryGB),createdAt:new Date().toISOString(),tested:false,existing:existing?{id:existing.item.id,stamp:existing.stamp}:null});
+   candidates.push({schema:1,ruleVersion:RULE_VERSION,answers:a,target,kind:tier,roots,...resolved,omitted,substitutions,visual,metrics,warnings,score:coverage+a.requiredFeatures.filter(k=>resolved.roots.some(r=>r.feature===k)).length*100000+(visual.profile!=='off'?12:0)+(visual.lod!=='off'?10:0)-catalog.findIndex(v=>v.id===game.id)*(a.freshness==='stable'?2:5),memory:memoryBudget(a,hardware.memoryGB),createdAt:new Date().toISOString(),tested:false,existing:existing?{id:existing.item.id,stamp:existing.stamp}:null});
   }
  }
  guide.checkGeneration();if(!candidates.length)fail('noPlan');
