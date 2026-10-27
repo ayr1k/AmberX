@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.qa/
+.smoke-data/
+releases/
+*.log
+.env
+.env.*

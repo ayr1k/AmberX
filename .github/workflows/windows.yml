@@ -1,0 +1,34 @@
+name: Windows build and tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24
+      - name: Enable pnpm
+        run: npm install --global pnpm@11.25.0
+      - name: Install dependencies
+        working-directory: prototype
+        run: pnpm install --frozen-lockfile
+      - name: Canonicalize Windows temporary directory
+        shell: pwsh
+        run: |
+          node --input-type=module -e "import {realpathSync,appendFileSync} from 'node:fs'; import {tmpdir} from 'node:os'; const p=realpathSync.native(tmpdir()); appendFileSync(process.env.GITHUB_ENV,'TEMP='+p+'\nTMP='+p+'\n');"
+      - name: Core tests
+        working-directory: prototype
+        run: pnpm test
+      - name: AmberX tests
+        working-directory: prototype
+        run: pnpm test:x
+      - name: Build UI
+        working-directory: prototype
+        run: pnpm build
+
